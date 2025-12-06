@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>happy-birthday-girlfriend</title>
+    <script>
+      try {
+        var x = '__storage_test__';
+        localStorage.setItem(x, x);
+        localStorage.removeItem(x);
+      } catch (e) {
+        console.warn('Storage access blocked, using in-memory mock');
+        var createStorageMock = function() {
+          var store = {};
+          return {
+            getItem: function(key) { return store[key] || null; },
+            setItem: function(key, value) { store[key] = String(value); },
+            removeItem: function(key) { delete store[key]; },
+            clear: function() { store = {}; },
+            key: function(index) { return Object.keys(store)[index] || null; },
+            get length() { return Object.keys(store).length; }
+          };
+        };
+        Object.defineProperty(window, 'localStorage', { value: createStorageMock() });
+        Object.defineProperty(window, 'sessionStorage', { value: createStorageMock() });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
